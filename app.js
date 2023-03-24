@@ -12,6 +12,7 @@ function main() {
 
     readline.question('What trade symbol you want to search? ', tradeSymbol => {
 
+        
         tradeActions.getRecentTrades(tradeSymbol)
         tradeActions.getKlines(tradeSymbol)
         tradeActions.getOrderBook(tradeSymbol)

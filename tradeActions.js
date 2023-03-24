@@ -1,10 +1,16 @@
+const axios = require('axios');
+
 async function fetchData(uniqueUrl, actionName) {
+
     const baseUrl = 'https://testnet.binancefuture.com/fapi/v1/'
-    const response = await fetch(baseUrl + uniqueUrl);
-    const jsonResponse = await response.json();
-    console.log(`======= ===== ===== ${actionName} ==== ==== ===== =====`);
-    console.log(jsonResponse);
+    await axios.get(baseUrl + uniqueUrl).then(res => {
+        console.log(`======= ===== ===== ${actionName} ==== ==== ===== =====`);
+        console.log(res.data);
+    }).catch(err => {
+        console.log(err);
+    })
 }
+
 
 async function getKlines(symbol, interval = '1') {
     const action = 'klines';
