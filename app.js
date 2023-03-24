@@ -1,18 +1,22 @@
-const orderUrl = ['https://testnet.binancefuture.com/fapi/v1/depth?symbol=BTCUSDT', 'Orders'];
-const tradesUrl = ['https://testnet.binancefuture.com/fapi/v1/depth?symbol=BTCUSDT', 'Trades'];
-const kLinesUrl = ['https://testnet.binancefuture.com/fapi/v1/depth?symbol=BTCUSDT', 'K-Lines'];
-const priceUrl = ['https://testnet.binancefuture.com/fapi/v1/depth?symbol=BTCUSDT', 'Prices'];
+const tradeActions = require('./tradeActions')
 
-async function getData([url, action]) {
+// let tradeSymbol = 'BTCUSDT';/// This is to be deleted. Just so that it is easier to test
 
+function main() {
+    console.log('Welcome to the Binance bot \n\ We provide Orders, recent trades, k-lines and prices. ');
 
-    const response = await fetch(url);
-    const jsonResponse = await response.json();
-    console.log(`==== ${action} ====`);
-    console.log(jsonResponse);
+    const readline = require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    readline.question('What trade symbol you want to search? ', tradeSymbol => {
+
+        tradeActions.getRecentTrades(tradeSymbol)
+        tradeActions.getKlines(tradeSymbol)
+        tradeActions.getOrderBook(tradeSymbol)
+        tradeActions.getTicker(tradeSymbol)
+        readline.close();
+    });
 }
-
-getData(orderUrl);
-getData(tradesUrl);
-getData(kLinesUrl);
-getData(priceUrl);
+main();
