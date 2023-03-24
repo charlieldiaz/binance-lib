@@ -1,36 +1,37 @@
-async function getTradeData(url, actionName) {
-    const response = await fetch(url);
+async function fetchData(uniqueUrl, actionName) {
+    const baseUrl = 'https://testnet.binancefuture.com/fapi/v1/'
+    const response = await fetch(baseUrl + uniqueUrl);
     const jsonResponse = await response.json();
     console.log(`======= ===== ===== ${actionName} ==== ==== ===== =====`);
     console.log(jsonResponse);
 }
 
-function getKlines(symbol, interval = '1') {
+async function getKlines(symbol, interval = '1') {
     const action = 'klines';
     const actionName = 'K-lines'
-    const url = `https://testnet.binancefuture.com/fapi/v1/${action}?symbol=${symbol}&interval=${interval}h`
-    getTradeData(url, actionName)
+    const uniqueUrl = `${action}?symbol=${symbol}&interval=${interval}h`
+    fetchData(uniqueUrl, actionName)
 }
 
-function getOrderBook(symbol, limit = 10) {
+async function getOrderBook(symbol, limit = 10) {
     const action = 'depth';
     const actionName = 'Orders'
-    const url = `https://testnet.binancefuture.com/fapi/v1/${action}?limit=${limit}&symbol=${symbol}`
-    getTradeData(url, actionName)
+    const uniqueUrl = `${action}?limit=${limit}&symbol=${symbol}`
+    fetchData(uniqueUrl, actionName)
 }
 
-function getTicker(symbol) {
+async function getTicker(symbol) {
     const action = 'ticker/price';
     const actionName = 'Price Ticker'
-    const url = `https://testnet.binancefuture.com/fapi/v1/${action}?symbol=${symbol}`
-    getTradeData(url, actionName)
+    const uniqueUrl = `${action}?symbol=${symbol}`
+    fetchData(uniqueUrl, actionName)
 }
 
-function getRecentTrades(symbol) {
+async function getRecentTrades(symbol) {
     const action = 'trades';
     const actionName = 'Recent Trades'
-    const url = `https://testnet.binancefuture.com/fapi/v1/${action}?symbol=${symbol}`
-    getTradeData(url, actionName)
+    const uniqueUrl = `${action}?symbol=${symbol}`
+    fetchData(uniqueUrl, actionName)
 }
 
 module.exports = { getOrderBook, getRecentTrades, getTicker, getKlines }
