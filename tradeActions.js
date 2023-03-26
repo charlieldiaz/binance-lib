@@ -1,43 +1,38 @@
 const axios = require('axios');
 
-async function fetchData(uniqueUrl, actionName) {
-
-    const baseUrl = 'https://testnet.binancefuture.com/fapi/v1/'
-    await axios.get(baseUrl + uniqueUrl).then(res => {
-        console.log(`======= ===== ===== ${actionName} ==== ==== ===== =====`);
-        console.log(res.data);
-    }).catch(err => {
-        console.log(err);
-    })
+const TEST_NET_BASE_URL = "https://testnet.binancefuture.com/fapi/v1/"
+async function fetchData(endPoint) {
+    try {
+        let response = await axios.get(TEST_NET_BASE_URL + endPoint)
+        return response.data
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 
 async function getKlines(symbol, interval = '1') {
     const action = 'klines';
-    const actionName = 'K-lines'
     const uniqueUrl = `${action}?symbol=${symbol}&interval=${interval}h`
-    fetchData(uniqueUrl, actionName)
+    return await fetchData(uniqueUrl)
 }
 
 async function getOrderBook(symbol, limit = 10) {
     const action = 'depth';
-    const actionName = 'Orders'
     const uniqueUrl = `${action}?limit=${limit}&symbol=${symbol}`
-    fetchData(uniqueUrl, actionName)
+    return await fetchData(uniqueUrl)
 }
 
 async function getTicker(symbol) {
     const action = 'ticker/price';
-    const actionName = 'Price Ticker'
     const uniqueUrl = `${action}?symbol=${symbol}`
-    fetchData(uniqueUrl, actionName)
+    return await fetchData(uniqueUrl)
 }
 
 async function getRecentTrades(symbol) {
     const action = 'trades';
-    const actionName = 'Recent Trades'
     const uniqueUrl = `${action}?symbol=${symbol}`
-    fetchData(uniqueUrl, actionName)
+    return await fetchData(uniqueUrl)
 }
 
 module.exports = { getOrderBook, getRecentTrades, getTicker, getKlines }
