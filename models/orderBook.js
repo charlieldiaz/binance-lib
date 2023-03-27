@@ -1,4 +1,4 @@
-function parseOrderBookItem(orderBookRawData) {
+async function parseAllOrderBook(orderBookRawData) {
     return {
         lastUpdateId: orderBookRawData.lastUpdateId,
         msgOutputTime: orderBookRawData.E,
@@ -17,12 +17,6 @@ function parseOrderBookItem(orderBookRawData) {
             }
         }),
     }
-}
-
-async function parseAllOrderBook(orderBookRawData) {
-    let OrderBookitem = parseOrderBookItem(orderBookRawData)
-    return OrderBookitem;
-
 }
 
 module.exports = { parseAllOrderBook };
