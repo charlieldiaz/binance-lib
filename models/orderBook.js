@@ -1,19 +1,19 @@
 function parseOrderBookItem(orderBookRawData) {
     return {
-        'lastUpdateId': orderBookRawData.lastUpdateId,
-        'Msg output time': orderBookRawData.E,
-        'Transaction time': orderBookRawData.T,
-        'bids': orderBookRawData.bids.map(element => {
+        lastUpdateId: orderBookRawData.lastUpdateId,
+        msgOutputTime: orderBookRawData.E,
+        transactionTime: orderBookRawData.T,
+        bids: orderBookRawData.bids.map(element => {
             return {
-                'PRICE': parseFloat(element[0]),
-                'QTY': parseFloat(element[1])
+                price: parseFloat(element[0]),
+                qty: parseFloat(element[1])
             }
         }),
 
-        'asks': orderBookRawData.asks.map(element => {
+        asks: orderBookRawData.asks.map(element => {
             return {
-                'PRICE': parseFloat(element[0]),
-                'QTY': parseFloat(element[1])
+                price: parseFloat(element[0]),
+                qty: parseFloat(element[1])
             }
         }),
     }
