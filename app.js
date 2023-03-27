@@ -1,5 +1,4 @@
 const tradeActions = require('./tradeActions')
-
 // let tradeSymbol = 'BTCUSDT';/// This is to be deleted. Just so that it is easier to test
 
 async function main() {
@@ -17,11 +16,22 @@ async function main() {
         let klines = await tradeActions.getKlines(tradeSymbol)
         let orderBook = await tradeActions.getOrderBook(tradeSymbol)
         let ticker = await tradeActions.getTicker(tradeSymbol)
+
+        ////   All below is the logs /////// to be deleted
+        console.log('--------    ******   ---------   trades   ------  ******* ----');
+        console.log(trades);
+        console.log('----------  *******  -------  orderBook ------  *******  -----');
+        console.log(orderBook);
+        console.log('---------- *******  ------  klines ------------- *******  ----');
+        console.log(klines);
+        console.log('---------  ******  -------  ticker ----------  *******  ------');
+        console.log(ticker);
+        ///////////////////////////
+
         readline.close();
     });
+
 }
 
 
-(async ()=> {
-    await main();
-})()
+main();
