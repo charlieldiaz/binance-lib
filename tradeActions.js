@@ -9,19 +9,31 @@ let { parseAllOrderBook } = require("./models/orderBook");
 const TEST_NET_BASE_URL = "https://testnet.binancefuture.com/fapi/v1/"
 
 async function fetchData(endPoint, action) {
-
     try {
         let response = await axios.get(TEST_NET_BASE_URL + endPoint)
 
-        logger.debug({
-            weight: response.headers['x-mbx-used-weight-1m'],
-            status: response.status,
-            action: action,
-        })
+        if (response.status === 200) {
+            logger.debug({
+                weight: response.headers['x-mbx-used-weight-1m'],
+                status: response.status,
+                action: action,
+            })
+
+        } else {
+            console.log('BATMAN WAS HERE');
+        }
         return response.data;
 
-    } catch (e) {
-        console.log(e);
+    }
+    catch (e) {
+        logger.error({
+            weight: e.response.headers['x-mbx-used-weight-1m'],
+            status: e.response.status,
+            url: e.response.config.url,
+            errorCode: e.response.data.code,
+            action: action,
+        })
+        throw new Error("Call failed")
     }
 }
 

@@ -5,18 +5,16 @@ let tradeSymbol = 'BTCUSDT';/// This is to be deleted. Just so that it is easier
 async function main() {
     console.log('Welcome to the Binance bot \n\ We provide Orders, recent trades, k-lines and prices. ');
 
-    // const readline = require('readline').createInterface({
-    //     input: process.stdin,
-    //     output: process.stdout
-    // });
-    let ticker = await tradeActions.getTicker(tradeSymbol)
+    try {
+        let trades = await tradeActions.getRecentTrades(tradeSymbol)
+        let klines = await tradeActions.getKlines(tradeSymbol)
+        let orderBook = await tradeActions.getOrderBook(tradeSymbol)
+        let ticker = await tradeActions.getTicker(tradeSymbol)
 
-    // readline.question('What trade symbol you want to search? ', async (tradeSymbol) => {
+    } catch (e) {
+        console.log("Here we catched an error");
+    }
 
-
-    //     // let trades = await tradeActions.getRecentTrades(tradeSymbol)
-    //     // let klines = await tradeActions.getKlines(tradeSymbol)
-    //     // let orderBook = await tradeActions.getOrderBook(tradeSymbol)
 
     //     ////   All below is the logs /////// to be deleted
     //     // logger.info('--------    ******   ---------   trades   ------  ******* ----');
@@ -28,8 +26,6 @@ async function main() {
     //     // logger.info('---------  ******  -------  ticker ----------  *******  ------');
     //     logger.info(ticker);
     //     ///////////////////////////
-
-    //     readline.close();
     // });
 
 }
