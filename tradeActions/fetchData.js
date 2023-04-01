@@ -1,7 +1,7 @@
 const axios = require('axios');
 const logger = require('../logger')
 
-const TEST_NET_BASE_URL = "https://testnet.binancefuture.com/fapi/v1/"
+const TEST_NET_BASE_URL = "https://testnet.binancefuture.com/fapi/"
 
 async function fetchData(requestOptions, endPoint) {
     try {
