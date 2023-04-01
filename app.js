@@ -16,11 +16,11 @@ async function main() {
         // let newOrder = await tradeActions.sendNewOrder(tradeSymbol, price, "BUY", "GTC", "LIMIT", 0.001)
         // console.log(newOrder);
 
-        let currentPositions = await tradeActions.getCurrentPositions(tradeSymbol)
-        console.log(currentPositions);
+        // let currentPositions = await tradeActions.getCurrentPositions(tradeSymbol)
+        // console.log(currentPositions);
 
-        // let cancelledopenOrders = await tradeActions.cancelAllOpenOrders(tradeSymbol)
-        // console.log(cancelledopenOrders);
+        let cancelledopenOrders = await tradeActions.cancelAllOpenOrders(tradeSymbol)
+        console.log(cancelledopenOrders);
 
         // return;
         // let PamirExample = await example.getOpenOrders(tradeSymbol)
