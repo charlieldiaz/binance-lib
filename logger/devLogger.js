@@ -2,7 +2,7 @@ const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, printf } = format;
 
 const myFormat = printf(({ level, message, timestamp }) => {
-    return `{"time": ${timestamp}, "level": ${level}, "weightPerMin": ${message.weight}, "status": ${message.status}, "action": ${message.action}${message.url ? `, "url": "${message.url}",` : ''}${message.errorCode ? `"errorCode": ${message.errorCode}` : ''}}`
+    return `{"time": ${timestamp}, "level": ${level}, "weightPerMin": ${message.weight}, "status": ${message.status}, "endPoint": ${message.endPoint}${message.url ? `, "url": "${message.url}",` : ''}${message.errorCode ? `"errorCode": ${message.errorCode}` : ''}${message.errorMsg ? `"errorMsg": ${message.errorMsg}` : ''}}`
 });
 
 function devLogger() {
