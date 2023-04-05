@@ -9,7 +9,7 @@ interface requestOptions {
   method: string;
 }
 
-async function fetchData(requestOptions: requestOptions, endPoint) {
+async function fetchData(requestOptions: requestOptions, endPoint: string) {
   try {
     const uniqueUrl = requestOptions.url;
     requestOptions.url = `${TEST_NET_BASE_URL}${uniqueUrl}`;

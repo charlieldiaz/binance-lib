@@ -1,11 +1,18 @@
-interface TickerData {
+interface RawTickerData {
   symbol: string;
   price: string;
   time: number;
 }
-export default async function ticker(tickerData: TickerData) {
+
+export interface TickerData {
+  symbol: string;
+  price: number;
+  time: Date;
+}
+
+export async function ticker(tickerData: RawTickerData): Promise<TickerData> {
   const parsedPrice = {
-    tickerPrice: parseFloat(tickerData.price),
+    price: parseFloat(tickerData.price),
     time: new Date(tickerData.time),
     symbol: tickerData.symbol,
   };

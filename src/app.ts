@@ -7,10 +7,14 @@ import {
 import sendNewOrder from "./tradeActions/sendNewOrder";
 import getCurrentPositions from "./tradeActions/getCurrentPositions";
 import cancelAllOpenOrders from "./tradeActions/cancelAllOpenOrders";
-
+import { TickerData } from "./models/ticker";
 import * as dotenv from "dotenv";
 
 import { exit } from "process";
+
+interface BinanceApi {
+  getTicker: (symbol: string) => Promise<TickerData>;
+}
 let tradeSymbol = "BTCUSDT"; /// This is to be deleted. Just so that it is easier to test
 let price = 20000;
 

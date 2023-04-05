@@ -1,6 +1,6 @@
 import fetchData from "./fetchData";
 
-import ticker from "../models/ticker";
+import { ticker, TickerData } from "../models/ticker";
 import parseAllTrades from "../models/trades";
 import parseAllKlines from "../models/kLines";
 import parseAllOrderBook from "../models/orderBook";
@@ -26,8 +26,7 @@ export async function getOrderBook(symbol: string, limit = 10) {
   const parsedOrderBookData = await fetchData(requestOptions, endPoint);
   return parseAllOrderBook(parsedOrderBookData);
 }
-
-export async function getTicker(symbol: string) {
+export async function getTicker(symbol: string): Promise<TickerData> {
   const endPoint = "v1/ticker/price";
   const uniqueUrl = `${endPoint}?symbol=${symbol}`;
   const requestOptions = {

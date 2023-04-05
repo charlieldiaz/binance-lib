@@ -7,6 +7,15 @@ interface tradesRawData {
   isBuyerMaker: boolean;
 }
 
+interface tradesData {
+  id: string;
+  price: number;
+  quantity: number;
+  quote: number;
+  time: Date;
+  isBuyerMaker: boolean;
+}
+
 function parseTradesItem(singleTrade: tradesRawData) {
   return {
     id: `${singleTrade.id}`,
@@ -18,8 +27,10 @@ function parseTradesItem(singleTrade: tradesRawData) {
   };
 }
 
-async function parseAllTrades(tradesRawData: tradesRawData[]) {
-  let allTrades: any[] = [];
+async function parseAllTrades(
+  tradesRawData: tradesRawData[]
+): Promise<tradesData[]> {
+  let allTrades:tradesData[] = [];
   tradesRawData.forEach((singleTrade) => {
     let item = parseTradesItem(singleTrade);
     allTrades.push(item);
