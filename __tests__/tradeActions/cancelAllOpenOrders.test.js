@@ -1,3 +1,14 @@
+const cancelAllOpenOrders = require('../../tradeActions/cancelAllOpenOrders');
+
+test('Checks cancel All OpenOrders receives does not receive empty string', () => {
+    expect(cancelAllOpenOrders(symbol)).toBe(3);
+});
+
+
+
+
+
+
 const util = require("../util")
 const { fetchData } = require('./fetchData')
 
@@ -5,11 +16,9 @@ require("dotenv").config();
 const secretKey = process.env.SECRET_KEY
 const apiKey = process.env.API_KEY
 
-
-
-async function sendNewOrder(symbol, price, side = "BUY", timeInForce = "GTC", type = "LIMIT", quantity) {
-    const endPoint = "v1/order";
-    const params = util.sortParamsAlphabeticallyOmitEmptySignV({ symbol, timestamp: Date.now(), side, type, quantity, price, timeInForce });
+async function cancelAllOpenOrders(symbol) {
+    const endPoint = "v1/allOpenOrders";
+    const params = util.sortParamsAlphabeticallyOmitEmptySignV({ symbol, timestamp: Date.now() });
     const signature = util.getSignature(params, secretKey);
 
     let url = `${endPoint}?${params}&signature=${signature}`;
@@ -17,11 +26,11 @@ async function sendNewOrder(symbol, price, side = "BUY", timeInForce = "GTC", ty
     const requestOptions = {
         headers: { 'X-MBX-APIKEY': apiKey },
         url,
-        method: "POST"
+        method: "DELETE"
     };
 
     const rawNeqwOrderData = await fetchData(requestOptions, endPoint)
     return rawNeqwOrderData
 }
 
-module.exports = { sendNewOrder }
+module.exports = { cancelAllOpenOrders }
