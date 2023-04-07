@@ -10,7 +10,7 @@ export interface TickerData {
   time: Date;
 }
 
-export async function ticker(tickerData: RawTickerData): Promise<TickerData> {
+export function ticker(tickerData: RawTickerData): TickerData {
   const parsedPrice = {
     price: parseFloat(tickerData.price),
     time: new Date(tickerData.time),

@@ -10,6 +10,8 @@ import cancelAllOpenOrders from "./tradeActions/cancelAllOpenOrders";
 import { TickerData } from "./models/ticker";
 import * as dotenv from "dotenv";
 
+import fetchData from "./jesttest";
+
 import { exit } from "process";
 
 interface BinanceApi {
@@ -29,6 +31,8 @@ async function main() {
     let orderBook = await getOrderBook(tradeSymbol);
     let ticker = await getTicker(tradeSymbol);
 
+    console.log("---this is batman ----");
+    console.log(fetchData(1));
     // let newOrder = await sendNewOrder(
     //   tradeSymbol,
     //   price,

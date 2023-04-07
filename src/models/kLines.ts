@@ -15,8 +15,25 @@ function parseKlinesItem(singleKline: any[]) {
   };
 }
 
-function parseAllKlines(klinesRawData: (string | number)[][]) {
-  let allKlines: any[] = [];
+interface KlinesParsedData {
+  openTime: Date;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
+  closeTime: Date;
+  quoteAssetVolume: number;
+  numberOfTrades: number;
+  takerBuyBaseAssetVolume: number;
+  takerBuyQuoteAssetVolume: number;
+  ignore: number;
+}
+
+function parseAllKlines(
+  klinesRawData: (string | number)[][]
+): KlinesParsedData[] {
+  let allKlines: KlinesParsedData[] = [];
   klinesRawData.forEach((singleKline) => {
     let item = parseKlinesItem(singleKline);
 

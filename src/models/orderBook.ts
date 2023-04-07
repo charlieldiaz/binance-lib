@@ -1,14 +1,22 @@
-interface orderBookRawData {
+interface OrderBookRawData {
   lastUpdateId: number;
   E: number;
-  T: number;
+  T: Date;
   bids: { [key: string]: string }[];
   asks: { [key: string]: string }[];
 }
 
-export default async function parseAllOrderBook(
-  orderBookRawData: orderBookRawData
-) {
+interface OrderBookParsedData {
+  lastUpdateId: number;
+  msgOutputTime: number;
+  transactionTime: Date;
+  bids: { price: number; qty: number }[];
+  asks: { price: number; qty: number }[];
+}
+
+export default function parseAllOrderBook(
+  orderBookRawData: OrderBookRawData
+): OrderBookParsedData {
   return {
     lastUpdateId: orderBookRawData.lastUpdateId,
     msgOutputTime: orderBookRawData.E,

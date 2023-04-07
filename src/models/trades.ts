@@ -27,10 +27,8 @@ function parseTradesItem(singleTrade: tradesRawData) {
   };
 }
 
-async function parseAllTrades(
-  tradesRawData: tradesRawData[]
-): Promise<tradesData[]> {
-  let allTrades:tradesData[] = [];
+function parseAllTrades(tradesRawData: tradesRawData[]): tradesData[] {
+  let allTrades: tradesData[] = [];
   tradesRawData.forEach((singleTrade) => {
     let item = parseTradesItem(singleTrade);
     allTrades.push(item);
