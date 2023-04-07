@@ -1,7 +1,7 @@
 import { getTicker } from "../../tradeActions";
-import { TickerData, ticker } from "../../models/ticker";
+import { Ticker, parseTicker } from "../../models/ticker";
 
-const getTickerSuccess = jest.fn((x: string): TickerData => {
+const getTickerSuccess = jest.fn((x: string): Ticker => {
   return { symbol: x, price: 199.9, time: new Date() };
 });
 

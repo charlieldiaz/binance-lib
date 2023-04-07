@@ -1,6 +1,6 @@
 import cancelAllOpenOrders from "../../tradeActions/cancelAllOpenOrders";
 import { getTicker } from "../../tradeActions";
-import { TickerData, ticker } from "../../models/ticker";
+import { parseTicker, Ticker } from "../../models/ticker";
 import * as dotenv from "dotenv";
 // function sum(a: number, b: number) {
 //   return a + b;
@@ -26,7 +26,7 @@ const correctData = {
 };
 
 test("Should work with parsed ticker interface", async () => {
-  let resp = await ticker({
+  let resp = await parseTicker({
     symbol: "BTCUSDT",
     price: "123.123",
     time: testTime,

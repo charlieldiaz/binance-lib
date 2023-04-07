@@ -1,12 +1,14 @@
 import util from "../util";
 import fetchData from "./fetchData";
+import {OrderSide, OrderType, TimeInForce} from "../models/enums";
 
+// todo: add return type
 export default async function sendNewOrder(
   symbol: string,
   price: number,
-  side = "BUY",
-  timeInForce = "GTC",
-  type = "LIMIT",
+  side: OrderSide = OrderSide.BUY,
+  timeInForce: TimeInForce = TimeInForce.GOOD_TILL_CANCEL,
+  type: OrderType = OrderType.LIMIT,
   quantity: number
 ) {
   const endPoint = "v1/order";
@@ -31,6 +33,5 @@ export default async function sendNewOrder(
     method: "POST",
   };
 
-  const rawNeqwOrderData = await fetchData(requestOptions, endPoint);
-  return rawNeqwOrderData;
+  return await fetchData(requestOptions, endPoint);
 }

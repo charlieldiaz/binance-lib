@@ -15,7 +15,7 @@ function parseKlinesItem(singleKline: any[]) {
   };
 }
 
-interface KlinesParsedData {
+export interface Kline {
   openTime: Date;
   open: number;
   high: number;
@@ -30,10 +30,10 @@ interface KlinesParsedData {
   ignore: number;
 }
 
-function parseAllKlines(
+export function parseAllKlines(
   klinesRawData: (string | number)[][]
-): KlinesParsedData[] {
-  let allKlines: KlinesParsedData[] = [];
+): Kline[] {
+  let allKlines: Kline[] = [];
   klinesRawData.forEach((singleKline) => {
     let item = parseKlinesItem(singleKline);
 
@@ -41,5 +41,3 @@ function parseAllKlines(
   });
   return allKlines;
 }
-
-export default parseAllKlines;

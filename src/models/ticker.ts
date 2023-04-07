@@ -4,17 +4,16 @@ interface RawTickerData {
   time: number;
 }
 
-export interface TickerData {
+export interface Ticker {
   symbol: string;
   price: number;
   time: Date;
 }
 
-export function ticker(tickerData: RawTickerData): TickerData {
-  const parsedPrice = {
+export function parseTicker(tickerData: RawTickerData): Ticker {
+  return {
     price: parseFloat(tickerData.price),
     time: new Date(tickerData.time),
     symbol: tickerData.symbol,
   };
-  return parsedPrice;
 }

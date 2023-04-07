@@ -1,6 +1,7 @@
 import util from "../util";
 import fetchData from "./fetchData";
 
+// todo: define return type
 export default async function getCurrentPositions(symbol = "") {
   let [apiKey, secretKey] = util.getApiKeys();
   const endPoint = "v2/positionRisk";
@@ -18,6 +19,5 @@ export default async function getCurrentPositions(symbol = "") {
     method: "GET",
   };
 
-  const rawNeqwOrderData = await fetchData(requestOptions, endPoint);
-  return rawNeqwOrderData;
+  return await fetchData(requestOptions, endPoint);
 }

@@ -7,7 +7,7 @@ interface tradesRawData {
   isBuyerMaker: boolean;
 }
 
-interface tradesData {
+export interface Trade {
   id: string;
   price: number;
   quantity: number;
@@ -27,8 +27,8 @@ function parseTradesItem(singleTrade: tradesRawData) {
   };
 }
 
-function parseAllTrades(tradesRawData: tradesRawData[]): tradesData[] {
-  let allTrades: tradesData[] = [];
+export function parseAllTrades(tradesRawData: tradesRawData[]): Trade[] {
+  let allTrades: Trade[] = [];
   tradesRawData.forEach((singleTrade) => {
     let item = parseTradesItem(singleTrade);
     allTrades.push(item);
@@ -36,5 +36,3 @@ function parseAllTrades(tradesRawData: tradesRawData[]): tradesData[] {
 
   return allTrades;
 }
-
-export default parseAllTrades;

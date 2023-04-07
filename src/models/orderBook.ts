@@ -6,7 +6,7 @@ interface OrderBookRawData {
   asks: { [key: string]: string }[];
 }
 
-interface OrderBookParsedData {
+export interface OrderBook {
   lastUpdateId: number;
   msgOutputTime: number;
   transactionTime: Date;
@@ -14,9 +14,9 @@ interface OrderBookParsedData {
   asks: { price: number; qty: number }[];
 }
 
-export default function parseAllOrderBook(
+export function parseAllOrderBook(
   orderBookRawData: OrderBookRawData
-): OrderBookParsedData {
+): OrderBook {
   return {
     lastUpdateId: orderBookRawData.lastUpdateId,
     msgOutputTime: orderBookRawData.E,

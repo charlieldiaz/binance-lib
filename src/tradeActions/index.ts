@@ -1,32 +1,49 @@
 import fetchData from "./fetchData";
 
-import { ticker, TickerData } from "../models/ticker";
-import parseAllTrades from "../models/trades";
-import parseAllKlines from "../models/kLines";
-import parseAllOrderBook from "../models/orderBook";
+import {parseTicker, Ticker} from "../models/ticker";
+import {Trade, parseAllTrades} from "../models/trades";
+import {Kline, parseAllKlines} from "../models/kLines";
+import {OrderBook, parseAllOrderBook} from "../models/orderBook";
+import {Interval} from "../models/enums"
 
-export async function getKlines(symbol: string, interval = "1") {
+/**
+ *
+ * @param symbol required
+ * @param limit optional, default 500 [1,1000]
+ * @param interval<Interval> required, default one minute
+ */
+export async function getKlines(symbol: string, limit = 500, interval: Interval = Interval.ONE_MINUTE ): Promise<Kline[]> {
   const endPoint = "v1/klines";
-  const uniqueUrl = `${endPoint}?symbol=${symbol}&interval=${interval}h`;
+  const uniqueUrl = `${endPoint}?symbol=${symbol}&limit=${limit}&interval=${interval}`;
   const requestOptions = {
     url: uniqueUrl,
     method: "GET",
   };
-  const rawKlinesData = await fetchData(requestOptions, endPoint);
-  return parseAllKlines(rawKlinesData);
+  const resp = await fetchData(requestOptions, endPoint);
+  return parseAllKlines(resp);
 }
 
-export async function getOrderBook(symbol: string, limit = 10) {
+/**
+ *
+ * @param symbol required
+ * @param limit default 10, possible [5, 10, 20, 50, 100, 500, 1000]
+ */
+export async function getOrderBook(symbol: string, limit = 10): Promise<OrderBook> {
   const endPoint = "v1/depth";
   const uniqueUrl = `${endPoint}?limit=${limit}&symbol=${symbol}`;
   const requestOptions = {
     url: uniqueUrl,
     method: "GET",
   };
-  const parsedOrderBookData = await fetchData(requestOptions, endPoint);
-  return parseAllOrderBook(parsedOrderBookData);
+  const resp = await fetchData(requestOptions, endPoint);
+  return parseAllOrderBook(resp);
 }
-export async function getTicker(symbol: string): Promise<TickerData> {
+
+/**
+ *
+ * @param symbol required
+ */
+export async function getTicker(symbol: string): Promise<Ticker> {
   const endPoint = "v1/ticker/price";
   const uniqueUrl = `${endPoint}?symbol=${symbol}`;
   const requestOptions = {
@@ -34,12 +51,14 @@ export async function getTicker(symbol: string): Promise<TickerData> {
     method: "GET",
   };
   const rawTickerData = await fetchData(requestOptions, endPoint);
-  const parsedtickerData = ticker(rawTickerData);
-
-  return parsedtickerData;
+  return parseTicker(rawTickerData);
 }
 
-export async function getRecentTrades(symbol: string) {
+/**
+ *
+ * @param symbol required
+ */
+export async function getRecentTrades(symbol: string): Promise<Trade[]> {
   const endPoint = "v1/trades";
   const uniqueUrl = `${endPoint}?symbol=${symbol}`;
   const requestOptions = {
@@ -49,10 +68,3 @@ export async function getRecentTrades(symbol: string) {
   const rawTradesData = await fetchData(requestOptions, endPoint);
   return parseAllTrades(rawTradesData);
 }
-
-export default {
-  getOrderBook,
-  getRecentTrades,
-  getTicker,
-  getKlines,
-};
