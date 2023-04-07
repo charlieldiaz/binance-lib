@@ -1,7 +1,12 @@
 import util from "../util";
 import fetchData from "./fetchData";
 
-async function cancelAllOpenOrders(symbol: string) {
+/**
+ * Cancels all open orders of the given symbol
+ * @param symbol required field
+ * @returns true if operation is successful
+ */
+async function cancelAllOpenOrders(symbol: string): Promise<boolean> {
   const endPoint = "v1/allOpenOrders";
   const params = util.sortParamsAlphabeticallyOmitEmptySignV({
     symbol,
@@ -18,8 +23,9 @@ async function cancelAllOpenOrders(symbol: string) {
     method: "DELETE",
   };
 
-  const rawNeqwOrderData = await fetchData(requestOptions, endPoint);
-  return rawNeqwOrderData;
+  const resp = await fetchData(requestOptions, endPoint);
+  return resp.code === 200;
+
 }
 
 export default cancelAllOpenOrders;
